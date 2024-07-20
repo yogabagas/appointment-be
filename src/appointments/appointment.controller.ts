@@ -7,9 +7,9 @@ export class AppointmentsController {
 
   @Post('book')
   async bookSlot(
-    @Body() bookSlotDto: { date: string; time: string; bookedBy: string },
+    @Body() bookSlotDto: { date: string; time: string; booked_by: string },
   ) {
-    const { date, time, bookedBy } = bookSlotDto;
-    return this.appointmentsService.createAppointment(date, time, bookedBy);
+    const { date, time, booked_by } = bookSlotDto;
+    return this.appointmentsService.createAppointment(date, time, booked_by);
   }
 }

@@ -41,10 +41,16 @@ export class ScheduleService {
         (bookedSlot) => bookedSlot.booked_time.substring(0, 5) === currentTime,
       );
 
+      let availableSlot: number = slot.slot_availibility; // Initialize with the total availability
+
+      if (isBooked) {
+        availableSlot -= bookedSlots.length; // Subtract the number of booked slots if the slot is booked
+      }
+
       slots.push({
         date,
         time: currentTime,
-        available_slots: isBooked ? 0 : 1,
+        available_slots: availableSlot,
       });
 
       const [hours, minutes] = currentTime.split(':').map(Number);

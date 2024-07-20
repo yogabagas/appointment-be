@@ -24,15 +24,11 @@ export class AppointmentsService {
       throw new Error('Slot not available for the selected date');
     }
 
-    const existingBooking = await this.appointmentRepository.findOne({
-      where: {
-        booked_date: date,
-        booked_time: time,
-        schedule: { id: schedule.id },
-      },
+    const bookedSlots = await this.appointmentRepository.find({
+      where: { booked_date: date, schedule: { id: schedule.id } },
     });
 
-    if (existingBooking) {
+    if (schedule.slot_availibility - bookedSlots.length == 0) {
       throw new Error('Slot already booked');
     }
 
